@@ -10,7 +10,7 @@ export default NextAuth({
       params: { grant_type: "authorization_code" },
       domain: "identita.delta-skola.cz",
       clientId: "helpdesk",
-      clientSecret: process.env.IS_CLIENT_SECRET,
+      clientSecret: process.env.NEXT_PUBLIC_IS_CLIENT_SECRET,
     }),
   ],
 });
