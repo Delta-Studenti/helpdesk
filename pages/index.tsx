@@ -1,5 +1,7 @@
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
+import Head from 'next/head';
+import React from 'react';
+import { LoginButton } from '../components/login-button';
+import styles from '../styles/Home.module.css';
 
 const HomePage: React.FC = () => {
   return (
@@ -15,7 +17,7 @@ const HomePage: React.FC = () => {
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{" "}
+          Get started by editing{' '}
           <code className={styles.code}>pages/index.js</code>
         </p>
 
@@ -49,6 +51,7 @@ const HomePage: React.FC = () => {
           </a>
         </div>
       </main>
+      <LoginButton />
 
       <footer className={styles.footer}>
         <a
@@ -56,7 +59,7 @@ const HomePage: React.FC = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{" "}
+          Powered by{' '}
           <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
         </a>
       </footer>
