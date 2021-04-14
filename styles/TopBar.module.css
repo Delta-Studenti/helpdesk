@@ -1,0 +1,11 @@
+.root {
+  flex-grow: 1;
+}
+
+.title {
+  flex-grow: 1;
+}
+
+.appbar {
+  z-index: 1500 !important;
+}

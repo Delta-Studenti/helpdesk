@@ -6,7 +6,7 @@ export default NextAuth({
     Providers.IdentityServer4({
       id: "identity-server4",
       name: "Delta - Identity Server",
-      scope: "openid profile email",
+      scope: "openid profile name email",
       params: { grant_type: "authorization_code" },
       domain: "identita.delta-skola.cz",
       clientId: "helpdesk",

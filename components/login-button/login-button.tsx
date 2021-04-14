@@ -1,6 +1,5 @@
 import React from "react";
-import { useSession, signOut } from "next-auth/client";
-import Link from "next/link";
+import { useSession, signOut, signIn } from "next-auth/client";
 import Button from "@material-ui/core/Button";
 
 const LoginButton: React.FC = () => {
@@ -9,8 +8,7 @@ const LoginButton: React.FC = () => {
   if (session) {
     return (
       <div>
-        <p>Přihlášen: {session.user.email}</p>
-        <Button variant="contained" color="primary" onClick={() => signOut()}>
+        <Button variant="text" onClick={() => signOut()}>
           Odhlásit se
         </Button>
       </div>
@@ -18,11 +16,13 @@ const LoginButton: React.FC = () => {
   }
 
   return (
-    <Link href="/api/auth/signin">
-      <Button variant="contained" color="primary">
-        Přihlásit se
-      </Button>
-    </Link>
+    <Button
+      onClick={() => {
+        signIn("identity-server4");
+      }}
+    >
+      Přihlásit se
+    </Button>
   );
 };
 
