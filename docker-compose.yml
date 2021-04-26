@@ -15,7 +15,7 @@ services:
     volumes:
       - ~/Docker/helpdeskdb:/var/lib/mysql
     environment:
-      - MYSQL_DATABASE="helpdesk"
-      - MYSQL_USER="helpdesk"
-      - MYSQL_PASSWORD="Heslo123"
-      - MYSQL_ROOT_PASSWORD="Heslo1234"
+      - MYSQL_DATABASE=helpdesk
+      - MYSQL_USER=helpdesk
+      - MYSQL_PASSWORD=Heslo123
+      - MYSQL_ROOT_PASSWORD=Heslo1234
