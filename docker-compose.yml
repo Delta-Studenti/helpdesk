@@ -19,3 +19,4 @@ services:
       - MYSQL_USER=helpdesk
       - MYSQL_PASSWORD=Heslo123
       - MYSQL_ROOT_PASSWORD=Heslo1234
+      - TZ=Europe/Prague
