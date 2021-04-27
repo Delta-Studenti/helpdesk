@@ -5,15 +5,14 @@ services:
     ports:
       - 3000:3000
     environment:
-      - NEXT_PUBLIC_IS_CLIENT_SECRET="helpdesk-secret"
-      - NEXTAUTH_URL="https://helpdesk.delta-skola.dev"
+      - NEXT_PUBLIC_IS_CLIENT_SECRET=helpdesk-secret
+      - NEXTAUTH_URL=https://helpdesk.delta-skola.dev
+      - NEXT_PUBLIC_DB_CONN=mysql://helpdesk:Heslo123@database:3306/helpdesk
   database:
-    image: mariadb:10.5.9
+    image: mariadb:10.1
     restart: always
     ports:
       - 3306:3306
-    volumes:
-      - ~/Docker/helpdeskdb:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=helpdesk
       - MYSQL_USER=helpdesk
