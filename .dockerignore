@@ -1,0 +1,5 @@
+database/data
+.next
+.vscode
+node_modules
+.env

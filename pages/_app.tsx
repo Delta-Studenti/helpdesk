@@ -4,6 +4,8 @@ import React from "react";
 import { ThemeProvider } from "../components/theme";
 
 const MyApp = ({ Component, pageProps }) => {
+  console.log(process.env.NEXT_PUBLIC_DB_CONN);
+
   return (
     <Provider session={pageProps.session}>
       <ThemeProvider>

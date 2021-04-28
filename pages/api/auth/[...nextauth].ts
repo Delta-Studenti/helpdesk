@@ -13,6 +13,7 @@ export default NextAuth({
       clientSecret: process.env.NEXT_PUBLIC_IS_CLIENT_SECRET,
     }),
   ],
+  database: process.env.NEXT_PUBLIC_DB_CONN,
   callbacks: {
     jwt: async (token, user, account, profile, isNewUser) => {
       if (profile) {

@@ -1,0 +1,28 @@
+version: "2"
+services:
+  core:
+    build: 
+      context: .
+      args:
+        - NEXT_PUBLIC_IS_CLIENT_SECRET=helpdesk-secret
+        - NEXT_PUBLIC_DB_CONN=mysql://helpdesk:Heslo123@database:3306/helpdesk
+    ports:
+      - 3000:3000
+    environment:
+      - NEXT_PUBLIC_IS_CLIENT_SECRET=helpdesk-secret
+      # - NEXTAUTH_URL=https://helpdesk.delta-skola.dev
+      - NEXT_PUBLIC_DB_CONN=mysql://helpdesk:Heslo123@database:3306/helpdesk
+  database:
+    image: mariadb:10.1
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - ./database/migrations/:/docker-entrypoint-initdb.d/
+      - ./database/data/:/var/lib/mysql/
+    environment:
+      - MYSQL_DATABASE=helpdesk
+      - MYSQL_USER=helpdesk
+      - MYSQL_PASSWORD=Heslo123
+      - MYSQL_ROOT_PASSWORD=Heslo1234
+      - TZ=Europe/Prague
