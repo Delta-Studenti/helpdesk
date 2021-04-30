@@ -41,6 +41,8 @@ CREATE TABLE IF NOT EXISTS `ticket_messages` (
 CREATE TABLE IF NOT EXISTS `ticket_tags` (
   `ticketId` int(11) NOT NULL,
   `tagId` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`),
   KEY `FK_ticket_tags_tickets` (`ticketId`),
   KEY `FK_ticket_tags_tags` (`tagId`),
   CONSTRAINT `FK_ticket_tags_tags` FOREIGN KEY (`tagId`) REFERENCES `tags` (`id`),

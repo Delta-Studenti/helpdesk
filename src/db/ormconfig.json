@@ -1,0 +1,13 @@
+[
+  {
+    "name": "default",
+    "type": "mariadb",
+    "host": "localhost",
+    "port": 3306,
+    "username": "helpdesk",
+    "password": "Heslo123",
+    "database": "",
+    "synchronize": false,
+    "entities": ["entities/*.js"]
+  }
+]
