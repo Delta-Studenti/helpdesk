@@ -4,7 +4,8 @@ export default gql`
     type Query {
         hello: String!
         users: [User!]!
-        tickets: [Ticket!]!
+        ticket(id: ID!): Ticket
+        tickets(first: Int = 15, skip: Int = 0): [Ticket!]!
         tags: [Tag!]!
     }
 
