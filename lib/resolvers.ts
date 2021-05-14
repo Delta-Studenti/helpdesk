@@ -81,6 +81,13 @@ const Mutation = {
     const newMessage = await getRepository(TicketMessages).save(message);
     newMessage.author = await getRepository(Users).findOne({where: {id: newMessage.authorId}});
     return newMessage;
+  },
+  createTag: async (_parent, { input }, _context, _info) => {
+    await dbConnect();
+    const tag = new Tags();
+    tag.title = input.title;
+    const newTag = await getRepository(Tags).save(tag);
+    return newTag.id;
   }
 };
 
