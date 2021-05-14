@@ -68,6 +68,19 @@ const Mutation = {
       return getRepository(TicketTags).save(tag);
     }));
     return newTicket.id;
+  },
+  createTicketMessage: async (_parent, { input }, _context, _info) => {
+    await dbConnect();
+    const userId = 1;
+
+    // console.log(input);
+    const message = new TicketMessages();
+    message.messages = input.message;
+    message.ticketId = input.ticketId;
+    message.authorId = userId;
+    const newMessage = await getRepository(TicketMessages).save(message);
+    newMessage.author = await getRepository(Users).findOne({where: {id: newMessage.authorId}});
+    return newMessage;
   }
 };
 

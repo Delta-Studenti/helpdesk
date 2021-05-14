@@ -12,6 +12,7 @@ export default gql`
 
     type Mutation {
         createTicket(input: CreateTicketInput!): ID
+        createTicketMessage(input: CreateTicketMessageInput): TicketMessage
     }
 
 
@@ -51,5 +52,10 @@ export default gql`
         title: String!
         tags: [ID]!
         message: String!
+    }
+
+    input CreateTicketMessageInput {
+        message: String!
+        ticketId: ID!
     }
 `;
