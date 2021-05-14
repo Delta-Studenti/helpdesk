@@ -42,6 +42,7 @@
     "@types/reflect-metadata": "^0.1.0",
     "eslint": "^7.17.0",
     "graphql-let": "^0.18.0-beta.2",
+    "graphql-tag": "^2.12.4",
     "mysql2": "^2.2.5",
     "typeorm-model-generator": "^0.4.5-no-engines",
     "typescript": "^4.2.4"
