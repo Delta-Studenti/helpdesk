@@ -21,13 +21,13 @@ const Query = {
       relations,
     });
   },
-  tickets: async (_parent, { first, skip, authorId }, _context, { fieldNodes }) => {
+  tickets: async (_parent, { take, skip, authorId }, _context, { fieldNodes }) => {
     await dbConnect();
     const relations = getRelations(fieldNodes.find(x => x.name.value === "tickets").selectionSet.selections);
     const where = authorId ? { authorId } : {};
     return await getRepository(Tickets).find({
       where,
-      take: Math.min(first, 50),
+      take: Math.min(take, 50),
       skip,
       relations
     });
