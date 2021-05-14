@@ -13,26 +13,22 @@ const Query = {
   },
   ticket: async (_parent, { id }, _context, { fieldNodes }) => {
     await dbConnect();
-    const relations = getRelations(fieldNodes.find(x => x.name.value === "ticket").selectionSet.selections)
+    const relations = getRelations(fieldNodes.find(x => x.name.value === "ticket").selectionSet.selections);
     const a = await getRepository(Tickets).findOne({
       where: { id },
       relations,
     });
-    console.log(a);
     return a;
   },
-  tickets: async (_parent, { first, skip }, _context, _info) => {
+  tickets: async (_parent, { first, skip, authorId }, _context, { fieldNodes }) => {
     await dbConnect();
+    const relations = getRelations(fieldNodes.find(x => x.name.value === "tickets").selectionSet.selections);
+    const where = authorId ? { "authorId": authorId } : {};
     return await getRepository(Tickets).find({
+      where,
       take: Math.min(first, 50),
       skip,
-      relations: [
-        "author",
-        "ticketTags",
-        "ticketTags.tag",
-        "ticketMessages",
-        "ticketMessages.author",
-      ],
+      relations
     });
   },
   tags: async (_parent, _args, _context, _info) => {
