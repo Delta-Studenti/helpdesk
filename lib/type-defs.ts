@@ -10,6 +10,9 @@ export default gql`
         tags: [Tag!]!
     }
 
+    type Mutation {
+        createTicket(input: CreateTicketInput!): ID
+    }
 
 
     type Tag {
@@ -41,5 +44,12 @@ export default gql`
         email_verified: String
         created_at: String!
         updated_at: String!
+    }
+
+
+    input CreateTicketInput {
+        title: String!
+        tags: [ID]!
+        message: String!
     }
 `;

@@ -1,6 +1,8 @@
 import { getRepository } from "typeorm";
 import { Tags } from "../src/db/entities/Tags";
+import { TicketMessages } from "../src/db/entities/TicketMessages";
 import { Tickets } from "../src/db/entities/Tickets";
+import { TicketTags } from "../src/db/entities/TicketTags";
 import { Users } from "../src/db/entities/Users";
 import { dbConnect } from "../utils/dbconnect";
 import { getRelations } from "./get-relations";
@@ -22,7 +24,7 @@ const Query = {
   tickets: async (_parent, { first, skip, authorId }, _context, { fieldNodes }) => {
     await dbConnect();
     const relations = getRelations(fieldNodes.find(x => x.name.value === "tickets").selectionSet.selections);
-    const where = authorId ? { "authorId": authorId } : {};
+    const where = authorId ? { authorId } : {};
     return await getRepository(Tickets).find({
       where,
       take: Math.min(first, 50),
@@ -40,10 +42,37 @@ const Query = {
   },
 };
 
-const Mutation = {};
+const Mutation = {
+  createTicket: async (_parent, { input }, _context, _info) => {
+    await dbConnect();
+    const userId = 1;
+
+    // Kontrola tagů
+    if ((await getRepository(Tags).find({where: input.tags.map(id => { return { id }})})).length !== input.tags.length) return null;
+    
+    const ticket = new Tickets();
+    ticket.authorId = userId;
+    ticket.title = input.title;
+    const newTicket = await getRepository(Tickets).save(ticket);
+
+    const message = new TicketMessages();
+    message.authorId = userId;
+    message.messages = input.message;
+    message.ticketId = newTicket.id;
+    await getRepository(TicketMessages).save(message);
+
+    await Promise.all(input.tags.map(x => {
+      const tag = new TicketTags();
+      tag.tagId = x;
+      tag.ticketId = newTicket.id;
+      return getRepository(TicketTags).save(tag);
+    }));
+    return newTicket.id;
+  }
+};
 
 const Ticket = {
   ticketTags: (ticket) => ticket.ticketTags.map((x) => x.tag),
 };
 
-export default { Query, Ticket };
+export default { Query, Mutation, Ticket };
