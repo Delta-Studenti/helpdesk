@@ -14,11 +14,10 @@ const Query = {
   ticket: async (_parent, { id }, _context, { fieldNodes }) => {
     await dbConnect();
     const relations = getRelations(fieldNodes.find(x => x.name.value === "ticket").selectionSet.selections);
-    const a = await getRepository(Tickets).findOne({
+    return await getRepository(Tickets).findOne({
       where: { id },
       relations,
     });
-    return a;
   },
   tickets: async (_parent, { first, skip, authorId }, _context, { fieldNodes }) => {
     await dbConnect();
