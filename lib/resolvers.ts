@@ -15,21 +15,31 @@ const Query = {
   },
   ticket: async (_parent, { id }, _context, { fieldNodes }) => {
     await dbConnect();
-    const relations = getRelations(fieldNodes.find(x => x.name.value === "ticket").selectionSet.selections);
+    const relations = getRelations(
+      fieldNodes.find((x) => x.name.value === "ticket").selectionSet.selections,
+    );
     return await getRepository(Tickets).findOne({
       where: { id },
       relations,
     });
   },
-  tickets: async (_parent, { take, skip, authorId }, _context, { fieldNodes }) => {
+  tickets: async (
+    _parent,
+    { take, skip, authorId },
+    _context,
+    { fieldNodes },
+  ) => {
     await dbConnect();
-    const relations = getRelations(fieldNodes.find(x => x.name.value === "tickets").selectionSet.selections);
+    const relations = getRelations(
+      fieldNodes.find((x) => x.name.value === "tickets").selectionSet
+        .selections,
+    );
     const where = authorId ? { authorId } : {};
     return await getRepository(Tickets).find({
       where,
       take: Math.min(take, 50),
       skip,
-      relations
+      relations,
     });
   },
   ticketsCount: async (_parent, _args, _context, _info) => {
@@ -48,8 +58,17 @@ const Mutation = {
     const userId = 1;
 
     // Kontrola tagů
-    if ((await getRepository(Tags).find({where: input.tags.map(id => { return { id }})})).length !== input.tags.length) return null;
-    
+    if (
+      (
+        await getRepository(Tags).find({
+          where: input.tags.map((id) => {
+            return { id };
+          }),
+        })
+      ).length !== input.tags.length
+    )
+      return null;
+
     const ticket = new Tickets();
     ticket.authorId = userId;
     ticket.title = input.title;
@@ -61,12 +80,14 @@ const Mutation = {
     message.ticketId = newTicket.id;
     await getRepository(TicketMessages).save(message);
 
-    await Promise.all(input.tags.map(x => {
-      const tag = new TicketTags();
-      tag.tagId = x;
-      tag.ticketId = newTicket.id;
-      return getRepository(TicketTags).save(tag);
-    }));
+    await Promise.all(
+      input.tags.map((x) => {
+        const tag = new TicketTags();
+        tag.tagId = x;
+        tag.ticketId = newTicket.id;
+        return getRepository(TicketTags).save(tag);
+      }),
+    );
     return newTicket.id;
   },
   createTicketMessage: async (_parent, { input }, _context, _info) => {
@@ -79,7 +100,9 @@ const Mutation = {
     message.ticketId = input.ticketId;
     message.authorId = userId;
     const newMessage = await getRepository(TicketMessages).save(message);
-    newMessage.author = await getRepository(Users).findOne({where: {id: newMessage.authorId}});
+    newMessage.author = await getRepository(Users).findOne({
+      where: { id: newMessage.authorId },
+    });
     return newMessage;
   },
   createTag: async (_parent, { input }, _context, _info) => {
@@ -88,7 +111,7 @@ const Mutation = {
     tag.title = input.title;
     const newTag = await getRepository(Tags).save(tag);
     return newTag.id;
-  }
+  },
 };
 
 const Ticket = {

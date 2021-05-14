@@ -20,8 +20,8 @@ import { VerificationRequests } from "../src/db/entities/VerificationRequests";
 //         cached.conn.close();
 //         //@ts-ignore
 //         cached = global.db = { conn: null, promise: null };
-//     }   
-    
+//     }
+
 //     cached.promise = createConnection({
 //         type: "mariadb",
 //         host: "localhost",
@@ -40,7 +40,7 @@ import { VerificationRequests } from "../src/db/entities/VerificationRequests";
 //             VerificationRequests
 //         ]
 //     });
-    
+
 //     cached.conn = await cached.promise;
 //     return cached.conn;
 // }
@@ -48,37 +48,37 @@ import { VerificationRequests } from "../src/db/entities/VerificationRequests";
 let connectionReadyPromise: Promise<void> | null = null;
 
 export const dbConnect = () => {
-    if (!connectionReadyPromise) {
-        connectionReadyPromise = (async () => {
-            // clean up old connection that references outdated hot-reload classes
-            try {
-                const staleConnection = getConnection();
-                await staleConnection.close();
-            } catch (error) {
-                // no stale connection to clean up
-            }
+  if (!connectionReadyPromise) {
+    connectionReadyPromise = (async () => {
+      // clean up old connection that references outdated hot-reload classes
+      try {
+        const staleConnection = getConnection();
+        await staleConnection.close();
+      } catch (error) {
+        // no stale connection to clean up
+      }
 
-            // wait for new default connection
-            await createConnection({
-                type: "mariadb",
-                host: "localhost",
-                port: 3306,
-                username: "helpdesk",
-                password: "Heslo123",
-                database: "helpdesk",
-                entities: [
-                    Accounts,
-                    Sessions,
-                    Tags,
-                    TicketMessages,
-                    Tickets,
-                    TicketTags,
-                    Users,
-                    VerificationRequests
-                ]
-            });
-        })();
-    }
+      // wait for new default connection
+      await createConnection({
+        type: "mariadb",
+        host: "localhost",
+        port: 3306,
+        username: "helpdesk",
+        password: "Heslo123",
+        database: "helpdesk",
+        entities: [
+          Accounts,
+          Sessions,
+          Tags,
+          TicketMessages,
+          Tickets,
+          TicketTags,
+          Users,
+          VerificationRequests,
+        ],
+      });
+    })();
+  }
 
-    return connectionReadyPromise;
-}
+  return connectionReadyPromise;
+};
