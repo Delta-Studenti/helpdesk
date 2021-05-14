@@ -14,6 +14,7 @@ export default gql`
     createTicket(input: CreateTicketInput!): ID
     createTicketMessage(input: CreateTicketMessageInput): TicketMessage
     createTag(input: CreateTagInput): ID
+    updateStatus(input: UpdateStatusInput): Int
   }
 
   type Tag {
@@ -60,5 +61,10 @@ export default gql`
 
   input CreateTagInput {
     title: String!
+  }
+
+  input UpdateStatusInput {
+    ticketId: ID!
+    newStatus: Int!
   }
 `;

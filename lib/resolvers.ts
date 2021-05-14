@@ -112,6 +112,14 @@ const Mutation = {
     const newTag = await getRepository(Tags).save(tag);
     return newTag.id;
   },
+  updateStatus: async (_parent, { input }, _context, _info) => {
+    await dbConnect();
+    const ticket = await getRepository(Tickets).findOne({where: {id: input.ticketId}});
+    if (!ticket) return null;
+    ticket.status = input.newStatus;
+    const newTicket = await getRepository(Tickets).save(ticket);
+    return newTicket.status;
+  },
 };
 
 const Ticket = {
