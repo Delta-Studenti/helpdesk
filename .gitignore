@@ -36,3 +36,7 @@ yarn-error.log*
 .env
 
 database/data
+database/data/*
+
+*.graphql.d.ts
+*.graphqls.d.ts

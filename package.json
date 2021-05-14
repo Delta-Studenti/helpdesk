@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "codegen": "graphql-let",
+    "dev": "yarn codegen && next dev",
+    "build": "yarn codegen && next build",
     "start": "next start",
     "lint": "eslint ./src/**/* ./components/**/*",
     "format:fix": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
@@ -12,7 +13,7 @@
     "db:gen": "typeorm-model-generator -h localhost -d helpdesk -u helpdesk -x Heslo123 -e mariadb -o ./src/db"
   },
   "dependencies": {
-    "@apollo/client": "^3.3.16",
+    "@apollo/client": "^3.3.18",
     "@babel/core": "^7.13.16",
     "@graphql-tools/schema": "^7.1.5",
     "@material-ui/core": "^4.11.3",
@@ -31,9 +32,16 @@
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.13.15",
     "@babel/plugin-syntax-jsx": "^7.12.13",
+    "@graphql-codegen/cli": "^1.21.4",
+    "@graphql-codegen/import-types-preset": "^1.18.1",
+    "@graphql-codegen/plugin-helpers": "^1.18.6",
+    "@graphql-codegen/typescript": "^1.22.0",
+    "@graphql-codegen/typescript-operations": "^1.17.16",
+    "@graphql-codegen/typescript-react-apollo": "^2.2.4",
     "@types/node": "^15.0.1",
     "@types/reflect-metadata": "^0.1.0",
     "eslint": "^7.17.0",
+    "graphql-let": "^0.18.0-beta.2",
     "mysql2": "^2.2.5",
     "typeorm-model-generator": "^0.4.5-no-engines",
     "typescript": "^4.2.4"

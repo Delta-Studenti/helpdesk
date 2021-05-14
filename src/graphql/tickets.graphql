@@ -1,0 +1,24 @@
+query tickets{
+  tickets{
+    id
+    title
+    created
+    status
+    author{
+      id
+      name
+    }
+    ticketTags{
+      id
+      title
+    }
+    ticketMessages{
+      messages
+      created
+      author{
+        name
+      }
+    }
+  }
+  ticketsCount
+}

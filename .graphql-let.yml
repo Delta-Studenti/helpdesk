@@ -1,0 +1,7 @@
+schema: lib/type-defs.ts
+documents: "src/graphql/*.graphql"
+plugins:
+  - typescript
+  - typescript-operations
+  - typescript-react-apollo
+respectGitIgnore: true
