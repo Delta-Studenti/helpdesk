@@ -6,6 +6,7 @@ export default gql`
         users: [User!]!
         ticket(id: ID!): Ticket
         tickets(first: Int = 15, skip: Int = 0, authorId: Int): [Ticket!]!
+        ticketsCount: Int!
         tags: [Tag!]!
     }
 

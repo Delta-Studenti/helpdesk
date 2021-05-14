@@ -31,6 +31,10 @@ const Query = {
       relations
     });
   },
+  ticketsCount: async (_parent, _args, _context, _info) => {
+    await dbConnect();
+    return getRepository(Tickets).count();
+  },
   tags: async (_parent, _args, _context, _info) => {
     await dbConnect();
     return await getRepository(Tags).find();
