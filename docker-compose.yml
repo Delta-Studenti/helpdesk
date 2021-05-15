@@ -1,17 +1,17 @@
 version: "2"
 services:
   # core:
-  #   build: 
-  #     context: .
-  #     args:
-  #       - NEXT_PUBLIC_IS_CLIENT_SECRET=helpdesk-secret
-  #       - NEXT_PUBLIC_DB_CONN=mysql://helpdesk:Heslo123@database:3306/helpdesk
+  #   build: .
   #   ports:
   #     - 3000:3000
   #   environment:
   #     - NEXT_PUBLIC_IS_CLIENT_SECRET=helpdesk-secret
   #     # - NEXTAUTH_URL=https://helpdesk.delta-skola.dev
-  #     - NEXT_PUBLIC_DB_CONN=mysql://helpdesk:Heslo123@database:3306/helpdesk
+  #     - NEXT_PUBLIC_DB_NAME=helpdesk
+  #     - NEXT_PUBLIC_DB_USERNAME=helpdesk
+  #     - NEXT_PUBLIC_DB_PASSWORD=Heslo123
+  #     - NEXT_PUBLIC_DB_ADDRESS=database
+  #     - NEXT_PUBLIC_DB_PORT=3306
   database:
     image: mariadb:10.1
     restart: always
