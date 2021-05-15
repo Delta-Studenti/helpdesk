@@ -8,10 +8,6 @@ RUN yarn install --frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM node:alpine AS builder
-ARG NEXT_PUBLIC_DB_CONN
-ENV NEXT_PUBLIC_DB_CONN $NEXT_PUBLIC_DB_CONN
-ARG NEXT_PUBLIC_IS_CLIENT_SECRET
-ENV NEXT_PUBLIC_IS_CLIENT_SECRET $NEXT_PUBLIC_IS_CLIENT_SECRET
 WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules

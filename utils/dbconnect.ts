@@ -8,43 +8,6 @@ import { TicketTags } from "../src/db/entities/TicketTags";
 import { Users } from "../src/db/entities/Users";
 import { VerificationRequests } from "../src/db/entities/VerificationRequests";
 
-////@ts-ignore
-// let cached = global.db;
-// if (!cached) {
-//     //@ts-ignore
-//     cached = global.db = { conn: null, promise: null };
-// }
-
-// export const dbConnect = async (): Promise<Connection> => {
-//     if (cached.conn) {
-//         cached.conn.close();
-//         //@ts-ignore
-//         cached = global.db = { conn: null, promise: null };
-//     }
-
-//     cached.promise = createConnection({
-//         type: "mariadb",
-//         host: "localhost",
-//         port: 3306,
-//         username: "helpdesk",
-//         password: "Heslo123",
-//         database: "helpdesk",
-//         entities: [
-//             Accounts,
-//             Sessions,
-//             Tags,
-//             TicketMessages,
-//             Tickets,
-//             TicketTags,
-//             Users,
-//             VerificationRequests
-//         ]
-//     });
-
-//     cached.conn = await cached.promise;
-//     return cached.conn;
-// }
-
 let connectionReadyPromise: Promise<void> | null = null;
 
 export const dbConnect = () => {
@@ -61,11 +24,11 @@ export const dbConnect = () => {
       // wait for new default connection
       await createConnection({
         type: "mariadb",
-        host: "localhost",
-        port: 3306,
-        username: "helpdesk",
-        password: "Heslo123",
-        database: "helpdesk",
+        host: process.env.NEXT_PUBLIC_DB_ADDRESS,
+        port: parseInt(process.env.NEXT_PUBLIC_DB_PORT),
+        username: process.env.NEXT_PUBLIC_DB_USERNAME,
+        password: process.env.NEXT_PUBLIC_DB_PASSWORD,
+        database: process.env.NEXT_PUBLIC_DB_NAME,
         entities: [
           Accounts,
           Sessions,
@@ -82,3 +45,5 @@ export const dbConnect = () => {
 
   return connectionReadyPromise;
 };
+
+export const getConnectionString = () => `mysql://${process.env.NEXT_PUBLIC_DB_USERNAME}:${process.env.NEXT_PUBLIC_DB_PASSWORD}@${process.env.NEXT_PUBLIC_DB_ADDRESS}:${process.env.NEXT_PUBLIC_DB_PORT}/${process.env.NEXT_PUBLIC_DB_NAME}`;

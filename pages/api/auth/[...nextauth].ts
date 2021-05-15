@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
+import { getConnectionString } from "../../../utils/dbconnect";
 
 export default NextAuth({
   providers: [
@@ -13,7 +14,7 @@ export default NextAuth({
       clientSecret: process.env.NEXT_PUBLIC_IS_CLIENT_SECRET,
     }),
   ],
-  database: process.env.NEXT_PUBLIC_DB_CONN,
+  database: getConnectionString(),
   callbacks: {
     jwt: async (token, user, account, profile, isNewUser) => {
       if (profile) {
