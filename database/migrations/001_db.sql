@@ -51,4 +51,4 @@ CREATE TABLE IF NOT EXISTS `ticket_tags` (
 
 -- Data exporting was unselected.
 
-
+ALTER TABLE `users`	CHANGE COLUMN `name` `name` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_czech_ci' AFTER `id`;
