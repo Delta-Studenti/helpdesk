@@ -1,4 +1,4 @@
-import { getRepository } from "typeorm";
+import { FindConditions, getRepository, Like } from "typeorm";
 import { Tags } from "../src/db/entities/Tags";
 import { TicketMessages } from "../src/db/entities/TicketMessages";
 import { Tickets } from "../src/db/entities/Tickets";
@@ -25,7 +25,7 @@ const Query = {
   },
   tickets: async (
     _parent,
-    { take, skip, authorId },
+    { take, skip, authorId, search },
     _context,
     { fieldNodes },
   ) => {
@@ -34,7 +34,9 @@ const Query = {
       fieldNodes.find((x) => x.name.value === "tickets").selectionSet
         .selections,
     );
-    const where = authorId ? { authorId } : {};
+    const where: FindConditions<Tickets> = {};
+    if (authorId) where.authorId = authorId;
+    if (search) where.title = Like(`%${search}%`);
     return await getRepository(Tickets).find({
       where,
       take: Math.min(take, 50),
@@ -114,7 +116,9 @@ const Mutation = {
   },
   updateStatus: async (_parent, { input }, _context, _info) => {
     await dbConnect();
-    const ticket = await getRepository(Tickets).findOne({where: {id: input.ticketId}});
+    const ticket = await getRepository(Tickets).findOne({
+      where: { id: input.ticketId },
+    });
     if (!ticket) return null;
     ticket.status = input.newStatus;
     const newTicket = await getRepository(Tickets).save(ticket);
