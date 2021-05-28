@@ -5,7 +5,12 @@ export default gql`
     hello: String!
     users: [User!]!
     ticket(id: ID!): Ticket
-    tickets(take: Int = 15, skip: Int = 0, authorId: Int): [Ticket!]!
+    tickets(
+      take: Int = 15
+      skip: Int = 0
+      authorId: Int
+      search: String
+    ): [Ticket!]!
     ticketsCount: Int!
     tags: [Tag!]!
   }

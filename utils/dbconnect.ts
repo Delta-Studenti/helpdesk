@@ -46,4 +46,5 @@ export const dbConnect = () => {
   return connectionReadyPromise;
 };
 
-export const getConnectionString = () => `mysql://${process.env.NEXT_PUBLIC_DB_USERNAME}:${process.env.NEXT_PUBLIC_DB_PASSWORD}@${process.env.NEXT_PUBLIC_DB_ADDRESS}:${process.env.NEXT_PUBLIC_DB_PORT}/${process.env.NEXT_PUBLIC_DB_NAME}`;
+export const getConnectionString = () =>
+  `mysql://${process.env.NEXT_PUBLIC_DB_USERNAME}:${process.env.NEXT_PUBLIC_DB_PASSWORD}@${process.env.NEXT_PUBLIC_DB_ADDRESS}:${process.env.NEXT_PUBLIC_DB_PORT}/${process.env.NEXT_PUBLIC_DB_NAME}`;
