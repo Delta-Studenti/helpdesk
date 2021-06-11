@@ -14,8 +14,9 @@ const TicketListContainer: React.FC = () => {
 
   const tickets = data.tickets.map(
     ({ id, title, author, status, created, ticketTags, ticketMessages }) => {
-      const createdAt = new Date();
-      console.log(new Date(created));
+      const time = new Date(parseInt(created))
+        .toLocaleDateString("cs-cz")
+        .toString();
       return (
         <Container key={id}>
           <Typography
@@ -27,7 +28,7 @@ const TicketListContainer: React.FC = () => {
             {title}
           </Typography>
           <Typography align="left" color="textSecondary" gutterBottom={true}>
-            {author.name} · {createdAt.getTime()} ·{" "}
+            {author.name} · {time} ·{" "}
             {status === 0
               ? "nezahájeno"
               : status === 2
